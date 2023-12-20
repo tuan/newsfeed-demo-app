@@ -1,3 +1,5 @@
+{% load django_vite %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,10 +7,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Newsfeed</title>
+
+    {% vite_hmr_client %}
+
+    <!-- needed to support React HMR -->
+    {% vite_react_refresh %}
+
+    {% vite_asset 'src/main.tsx' %}
 </head>
 
 <body>
-    <h1>Welcome to Newsfeed</h1>
+    <div id="root"></div>
 </body>
 
 </html>

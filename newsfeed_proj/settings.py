@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts",
+    "django_vite",
     "home",
 ]
 
@@ -114,11 +115,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Django Vite
+# 5173 is the port of vite devserver
+DJANGO_VITE = {"default": {"dev_mode": DEBUG, "dev_server_port": 5173}}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "collectedstatic"
+
+# client/dist should match the outDir location configured in vite.config.ts
+STATICFILES_DIRS = [BASE_DIR / "client" / "dist"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
