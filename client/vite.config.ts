@@ -1,10 +1,11 @@
+import relay from "vite-plugin-relay";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [relay, react()],
   // this is the same as the STATIC_URL in django
   // the vite devserver will serve
   // assets via http://localhost:port/static/
