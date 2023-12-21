@@ -6,7 +6,8 @@ import {
   FetchFunction,
 } from "relay-runtime";
 
-const HTTP_ENDPOINT = "http://localhost:5000/graphql";
+// Need to have trailing / to make Django happy
+const HTTP_ENDPOINT = "http://localhost:8000/graphql/";
 
 const fetchFn: FetchFunction = async (request, variables) => {
   const resp = await fetch(HTTP_ENDPOINT, {
