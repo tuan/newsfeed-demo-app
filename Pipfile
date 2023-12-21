@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 django-vite = "*"
+strawberry-graphql = "*"
 
 [dev-packages]
 
