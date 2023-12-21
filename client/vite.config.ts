@@ -8,7 +8,7 @@ export default defineConfig({
   // this is the same as the STATIC_URL in django
   // the vite devserver will serve
   // assets via http://localhost:port/static/
-  base: "/static/",
+  base: "/static/vite/",
   server: {
     // this is needed to handle bundled assets such as images
     origin: "http://localhost:5173",

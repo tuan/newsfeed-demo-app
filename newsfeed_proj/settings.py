@@ -117,8 +117,15 @@ USE_I18N = True
 USE_TZ = True
 
 # Django Vite
-# 5173 is the port of vite devserver
-DJANGO_VITE = {"default": {"dev_mode": DEBUG, "dev_server_port": 5173}}
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": DEBUG,
+        # 5173 is the port of vite devserver
+        "dev_server_port": 5173,
+        # vite should match the settings in vite.config.ts
+        "static_url_prefix": "vite",
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -127,7 +134,8 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "collectedstatic"
 
 # client/dist should match the outDir location configured in vite.config.ts
-STATICFILES_DIRS = [BASE_DIR / "client" / "dist"]
+# vite namespace should match `static_url_prefix`
+STATICFILES_DIRS = [("vite", BASE_DIR / "client" / "dist"), BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
