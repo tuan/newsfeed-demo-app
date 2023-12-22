@@ -1,8 +1,60 @@
-type Book {
-  title: String!
-  author: String!
+interface Actor {
+  name: String
+  profilePicture: Image
+  joined: String
+}
+
+enum Category {
+  ALL
+  EDUCATION
+  NEWS
+  COOKING
+}
+
+type Image {
+  altText: String
+  url: String!
+}
+
+type Location {
+  name: String!
+}
+
+type Organization implements Actor {
+  name: String
+  profilePicture: Image
+  joined: String
+  organizationKind: OrganizationKind
+}
+
+enum OrganizationKind {
+  COMMERCIAL
+  NONPROFIT
+  GOVERNMENT
+  JOURNALISTIC
+}
+
+type Person implements Actor {
+  name: String
+  profilePicture: Image
+  joined: String
+  email: String
+  location: Location
 }
 
 type Query {
-  books: [Book!]!
+  topStory: Story
+}
+
+type Story {
+  createdAt: String!
+  category: Category
+  title: String!
+  summary: String
+  updatedAt: String
+  attachments: [Image]
+  thumbnail: Image
+  likeCount: Int
+  doesViewerLike: Boolean
+  poster: Actor!
 }
