@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cfdbc3871209f3287e18258df9f1227e>>
+ * @generated SignedSource<<0262e0ec481beff3e02a3dba339db9b0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,20 +9,11 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type NewsfeedQuery$variables = Record<PropertyKey, never>;
 export type NewsfeedQuery$data = {
   readonly topStory: {
-    readonly poster: {
-      readonly name: string | null | undefined;
-      readonly profilePicture: {
-        readonly url: string;
-      } | null | undefined;
-    };
-    readonly summary: string | null | undefined;
-    readonly thumbnail: {
-      readonly url: string;
-    } | null | undefined;
-    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"StoryFragment">;
   } | null | undefined;
 };
 export type NewsfeedQuery = {
@@ -31,28 +22,7 @@ export type NewsfeedQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "summary",
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v3 = [
+var v0 = [
   {
     "alias": null,
     "args": null,
@@ -60,27 +30,7 @@ v3 = [
     "name": "url",
     "storageKey": null
   }
-],
-v4 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Image",
-  "kind": "LinkedField",
-  "name": "profilePicture",
-  "plural": false,
-  "selections": (v3/*: any*/),
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Image",
-  "kind": "LinkedField",
-  "name": "thumbnail",
-  "plural": false,
-  "selections": (v3/*: any*/),
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -96,22 +46,11 @@ return {
         "name": "topStory",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/),
           {
-            "alias": null,
             "args": null,
-            "concreteType": null,
-            "kind": "LinkedField",
-            "name": "poster",
-            "plural": false,
-            "selections": [
-              (v2/*: any*/),
-              (v4/*: any*/)
-            ],
-            "storageKey": null
-          },
-          (v5/*: any*/)
+            "kind": "FragmentSpread",
+            "name": "StoryFragment"
+          }
         ],
         "storageKey": null
       }
@@ -133,8 +72,27 @@ return {
         "name": "topStory",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "title",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "summary",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "createdAt",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -150,28 +108,56 @@ return {
                 "name": "__typename",
                 "storageKey": null
               },
-              (v2/*: any*/),
-              (v4/*: any*/)
+              {
+                "kind": "TypeDiscriminator",
+                "abstractKey": "__isActor"
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Image",
+                "kind": "LinkedField",
+                "name": "profilePicture",
+                "plural": false,
+                "selections": (v0/*: any*/),
+                "storageKey": null
+              }
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Image",
+            "kind": "LinkedField",
+            "name": "thumbnail",
+            "plural": false,
+            "selections": (v0/*: any*/),
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "819279ccf5603235e289462a7100d12b",
+    "cacheID": "1154a5de6061ecbad43f33873dcd9ddf",
     "id": null,
     "metadata": {},
     "name": "NewsfeedQuery",
     "operationKind": "query",
-    "text": "query NewsfeedQuery {\n  topStory {\n    title\n    summary\n    poster {\n      __typename\n      name\n      profilePicture {\n        url\n      }\n    }\n    thumbnail {\n      url\n    }\n  }\n}\n"
+    "text": "query NewsfeedQuery {\n  topStory {\n    ...StoryFragment\n  }\n}\n\nfragment ImageFragment_image on Image {\n  url\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  name\n  profilePicture {\n    ...ImageFragment_image\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n  }\n  thumbnail {\n    ...ImageFragment_image\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a9fcda7f535317fb43f6861ecfe58e77";
+(node as any).hash = "65c357bf80ef742b634fe4d5946d1b3a";
 
 export default node;
