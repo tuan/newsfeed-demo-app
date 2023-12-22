@@ -1,12 +1,30 @@
 import strawberry
-from strawberry.relay import NodeID
+from strawberry.relay import Node, NodeID
 
 from api.types.image import Image
+from db.types import JsonNode
 
 
 @strawberry.interface
-class Actor:
-    id: NodeID[str]
-    name: str | None
-    profile_picture: Image | None
-    joined: str | None
+class Actor(Node):
+    actor_id: NodeID[str]
+
+    _data: strawberry.Private[JsonNode]
+
+    def __init__(self, data: JsonNode):
+        super().__init__()
+
+        self._data = data
+        self.actor_id = data.get("id", "")
+
+    @strawberry.field
+    def name(self) -> str | None:
+        return self._data.get("name")
+
+    @strawberry.field
+    def profile_picture(self) -> Image | None:
+        return Image.from_raw_data(self._data.get("profilePicture"))
+
+    @strawberry.field
+    def joined(self) -> str | None:
+        return self._data.get("joined")

@@ -1,15 +1,7 @@
 import strawberry
 from api.types.organization import Organization
 from api.types.person import Person
-
-from api.types.story import Story
-from api.resolvers import top_story
-
-
-@strawberry.type
-class Query:
-    top_story: Story | None = strawberry.field(resolver=top_story.resolve)
-
+from api.types.query import Query
 
 schema = strawberry.Schema(
     query=Query,
