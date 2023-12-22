@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<658b3ceef5a0f7ae53609399f73124e0>>
+ * @generated SignedSource<<14c0d2463b8886405456e02e91625fb4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -121,6 +121,7 @@ return {
                 "kind": "TypeDiscriminator",
                 "abstractKey": "__isActor"
               },
+              (v0/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -139,11 +140,7 @@ return {
                 "storageKey": null
               },
               {
-                "kind": "InlineFragment",
-                "selections": [
-                  (v0/*: any*/)
-                ],
-                "type": "Node",
+                "kind": "TypeDiscriminator",
                 "abstractKey": "__isNode"
               }
             ],
@@ -166,12 +163,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c4b36920740930cfdf2830e4cdffc806",
+    "cacheID": "f79daa47c5ca037b491f440c7c39c1da",
     "id": null,
     "metadata": {},
     "name": "NewsfeedQuery",
     "operationKind": "query",
-    "text": "query NewsfeedQuery {\n  topStories {\n    ...StoryFragment\n    id\n  }\n}\n\nfragment ImageFragment_image on Image {\n  url\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  name\n  profilePicture {\n    ...ImageFragment_image\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  thumbnail {\n    ...ImageFragment_image\n  }\n}\n"
+    "text": "query NewsfeedQuery {\n  topStories {\n    ...StoryFragment\n    id\n  }\n}\n\nfragment ImageFragment_image on Image {\n  url\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  id\n  name\n  profilePicture {\n    ...ImageFragment_image\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  thumbnail {\n    ...ImageFragment_image\n  }\n}\n"
   }
 };
 })();

@@ -13,6 +13,7 @@ export type Props = {
 
 const PosterBylineFragment = graphql`
   fragment PosterBylineFragment on Actor {
+    id
     name
     profilePicture {
       ...ImageFragment_image
@@ -38,7 +39,7 @@ export default function PosterByline({
       )}
       <div className="byline__name">{data.name}</div>
       <Hovercard targetRef={hoverRef}>
-        <PosterDetailsHovercardContents />
+        <PosterDetailsHovercardContents posterId={data.id} />
       </Hovercard>
     </div>
   );
