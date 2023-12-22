@@ -6,7 +6,7 @@ const { useEffect, useState } = React;
 
 export type Props = {
   children: React.ReactElement;
-  targetRef: { current: HTMLElement };
+  targetRef: React.RefObject<HTMLElement>;
   onBeginHover?: () => void;
 };
 
@@ -15,7 +15,9 @@ export default function Hovercard({
   targetRef,
   onBeginHover,
 }: Props) {
-  const [hoverState, setHoverState] = useState(null);
+  const [hoverState, setHoverState] = useState<{ x: number; y: number } | null>(
+    null
+  );
 
   useEffect(() => {
     const target = targetRef.current;
@@ -29,11 +31,11 @@ export default function Hovercard({
     const leaveCallback = () => {
       setHoverState(null);
     };
-    target.addEventListener("mouseenter", enterCallback);
-    target.addEventListener("mouseleave", leaveCallback);
+    target?.addEventListener("mouseenter", enterCallback);
+    target?.addEventListener("mouseleave", leaveCallback);
     return () => {
-      target.removeEventListener("mouseenter", enterCallback);
-      target.removeEventListener("mouseleave", leaveCallback);
+      target?.removeEventListener("mouseenter", enterCallback);
+      target?.removeEventListener("mouseleave", leaveCallback);
     };
   });
 

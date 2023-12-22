@@ -53,6 +53,10 @@ type Person implements Actor & Node {
 }
 
 type Query {
+  node(
+    """The ID of the object."""
+    id: GlobalID!
+  ): Node!
   topStory: Story
   topStories: [Story!]!
 }

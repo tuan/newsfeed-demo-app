@@ -3,6 +3,9 @@ import Image from "./Image";
 import { graphql } from "relay-runtime";
 import { useFragment } from "react-relay";
 import { PosterBylineFragment$key } from "./__generated__/PosterBylineFragment.graphql";
+import { useRef } from "react";
+import Hovercard from "./Hovercard";
+import PosterDetailsHovercardContents from "./PosterDetailsHovercardContents";
 
 export type Props = {
   poster: PosterBylineFragment$key;
@@ -21,9 +24,10 @@ export default function PosterByline({
   poster,
 }: Props): React.ReactElement | null {
   const data = useFragment(PosterBylineFragment, poster);
+  const hoverRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="byline">
+    <div ref={hoverRef} className="byline">
       {data.profilePicture && (
         <Image
           image={data.profilePicture}
@@ -33,6 +37,9 @@ export default function PosterByline({
         />
       )}
       <div className="byline__name">{data.name}</div>
+      <Hovercard targetRef={hoverRef}>
+        <PosterDetailsHovercardContents />
+      </Hovercard>
     </div>
   );
 }
