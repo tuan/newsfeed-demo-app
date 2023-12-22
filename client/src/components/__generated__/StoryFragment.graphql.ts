@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<96850dfa4dd47e2c3c4853e0b20810ef>>
+ * @generated SignedSource<<bda95bcd80fadb5772f076669905dd91>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type StoryFragment$data = {
   readonly poster: {
     readonly " $fragmentSpreads": FragmentRefs<"PosterBylineFragment">;
   };
-  readonly summary: string | null | undefined;
+  readonly summary: string;
   readonly thumbnail: {
     readonly " $fragmentSpreads": FragmentRefs<"ImageFragment_image">;
   } | null | undefined;
