@@ -1,3 +1,4 @@
+import itertools
 import strawberry
 
 from api.types.story import Story
@@ -13,3 +14,10 @@ class Query:
             return None
 
         return Story(first)
+
+    @strawberry.field
+    def top_stories(self) -> list[Story]:
+        stories = (
+            Story(node) for node in db.nodes if node.get("__typename") == "Story"
+        )
+        return list(itertools.islice(stories, 3))
