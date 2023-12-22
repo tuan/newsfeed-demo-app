@@ -24,9 +24,9 @@ class Person(Actor):
     def resolve_nodes(
         cls,
         *,
-        _info,
+        info,
         node_ids: Iterable[str],
-        _required: bool = False,
+        required: bool = False,
     ):
         return [
             Person(node)
