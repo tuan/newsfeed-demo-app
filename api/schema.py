@@ -1,25 +1,18 @@
-import typing
 import strawberry
+from api.types.organization import Organization
+from api.types.person import Person
 
-
-@strawberry.type
-class Book:
-    title: str
-    author: str
-
-
-def get_books():
-    return [
-        Book(
-            title="The Great Gatsby",
-            author="F. Scott Fitzgerald",
-        ),
-    ]
+from api.types.story import Story
+from api.resolvers import top_story
 
 
 @strawberry.type
 class Query:
-    books: typing.List[Book] = strawberry.field(resolver=get_books)
+    top_story: Story | None = strawberry.field(resolver=top_story.resolve)
 
 
-schema = strawberry.Schema(query=Query)
+schema = strawberry.Schema(
+    query=Query,
+    # these types implement an interface and do not appear directly in schema
+    types=[Person, Organization],
+)
