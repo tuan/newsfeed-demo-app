@@ -9,6 +9,10 @@ from db import db
 
 from db.types import JsonNode
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 @strawberry.type
 class Story(Node):
@@ -69,4 +73,6 @@ class Story(Node):
             case "Organization":
                 return Organization(raw_data)
             case _:
-                raise Exception(f"Unknown Actor type {type_name}")
+                message = f"Unknown Actor type {type_name}"
+                logger.warn(message)
+                raise Exception(message)
