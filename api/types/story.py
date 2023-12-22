@@ -1,8 +1,10 @@
+from typing import Iterable
 import strawberry
 from api.types.actor import Actor
 from api.types.image import Image
 
 from strawberry.relay import Node, NodeID
+from strawberry.types import Info
 from api.types.organization import Organization
 from api.types.person import Person
 from db import db
@@ -76,3 +78,17 @@ class Story(Node):
                 message = f"Unknown Actor type {type_name}"
                 logger.warn(message)
                 raise Exception(message)
+
+    @classmethod
+    def resolve_nodes(
+        cls,
+        *,
+        _info: Info,
+        node_ids: Iterable[str],
+        _required: bool = False,
+    ):
+        return [
+            Story(node)
+            for node in db.nodes
+            if node.get("__typename") == "Story" and str(node.get("id")) in node_ids
+        ]

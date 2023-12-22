@@ -1,7 +1,9 @@
+from typing import Iterable
 import strawberry
 from api.types.actor import Actor
 
 from api.types.location import Location
+from db import db
 from db.types import JsonNode
 
 
@@ -17,3 +19,17 @@ class Person(Actor):
     @strawberry.field
     def location(self) -> Location | None:
         return Location.from_raw_data(self._data.get("location"))
+
+    @classmethod
+    def resolve_nodes(
+        cls,
+        *,
+        _info,
+        node_ids: Iterable[str],
+        _required: bool = False,
+    ):
+        return [
+            Person(node)
+            for node in db.nodes
+            if node.get("__typename") == "Person" and str(node.get("id")) in node_ids
+        ]
