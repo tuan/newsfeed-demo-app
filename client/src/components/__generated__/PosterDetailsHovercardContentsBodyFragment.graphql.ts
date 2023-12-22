@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fd0e8d0e3319b89c28fb65bbe1dcb8b2>>
+ * @generated SignedSource<<bd89eb7af3afb3234ebad6fb914669cf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,11 +9,16 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type OrganizationKind = "COMMERCIAL" | "GOVERNMENT" | "JOURNALISTIC" | "NONPROFIT" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type PosterDetailsHovercardContentsBodyFragment$data = {
   readonly id: any;
   readonly joined: string | null | undefined;
+  readonly location?: {
+    readonly name: string;
+  } | null | undefined;
   readonly name: string | null | undefined;
+  readonly organizationKind?: OrganizationKind | null | undefined;
   readonly profilePicture: {
     readonly " $fragmentSpreads": FragmentRefs<"ImageFragment_image">;
   } | null | undefined;
@@ -24,7 +29,15 @@ export type PosterDetailsHovercardContentsBodyFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"PosterDetailsHovercardContentsBodyFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -37,13 +50,7 @@ const node: ReaderFragment = {
       "name": "id",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -66,12 +73,46 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "organizationKind",
+          "storageKey": null
+        }
+      ],
+      "type": "Organization",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Location",
+          "kind": "LinkedField",
+          "name": "location",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "type": "Person",
+      "abstractKey": null
     }
   ],
   "type": "Actor",
   "abstractKey": "__isActor"
 };
+})();
 
-(node as any).hash = "66dd11703fd5121492506801ef146e0e";
+(node as any).hash = "b9e45af641d47e98f507e7b60f23c46a";
 
 export default node;
