@@ -5,8 +5,7 @@ from api.types.image import Image
 
 from strawberry.relay import Node, NodeID
 from strawberry.types import Info
-from api.types.organization import Organization
-from api.types.person import Person
+from api.utils.actor import convert_to_actor
 from db import db
 
 from db.types import JsonNode
@@ -67,25 +66,15 @@ class Story(Node):
     def poster(self) -> Actor:
         authorId = self._data.get("authorID")
         raw_data = next(node for node in db.nodes if node.get("id") == authorId)
-        type_name = raw_data.get("__typename")
-
-        match type_name:
-            case "Person":
-                return Person(raw_data)
-            case "Organization":
-                return Organization(raw_data)
-            case _:
-                message = f"Unknown Actor type {type_name}"
-                logger.warn(message)
-                raise Exception(message)
+        return convert_to_actor(raw_data)
 
     @classmethod
     def resolve_nodes(
         cls,
         *,
-        _info: Info,
+        info: Info,
         node_ids: Iterable[str],
-        _required: bool = False,
+        required: bool = False,
     ):
         return [
             Story(node)

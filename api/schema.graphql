@@ -12,8 +12,7 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 scalar GlobalID @specifiedBy(url: "https://relay.dev/graphql/objectidentification.htm")
 
 type Image {
-  altText: String
-  url: String!
+  url(width: Int = null, height: Int = null): String!
 }
 
 type Location {
@@ -59,6 +58,7 @@ type Query {
   ): Node!
   topStory: Story
   topStories: [Story!]!
+  viewer: Viewer!
 }
 
 type Story implements Node {
@@ -73,4 +73,9 @@ type Story implements Node {
   likeCount: Int
   doesViewerLike: Boolean
   poster: Actor!
+}
+
+type Viewer {
+  actor: Actor!
+  contacts(search: String = null): [Actor!]!
 }

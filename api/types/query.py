@@ -2,6 +2,7 @@ import itertools
 import strawberry
 
 from api.types.story import Story
+from api.types.viewer import Viewer
 from db import db
 from strawberry import relay
 
@@ -24,3 +25,7 @@ class Query:
             Story(node) for node in db.nodes if node.get("__typename") == "Story"
         )
         return list(itertools.islice(stories, 3))
+
+    @strawberry.field
+    def viewer(self) -> Viewer:
+        return Viewer()
