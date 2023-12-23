@@ -1,4 +1,3 @@
-import * as React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "react-relay";
 import type { ViewerProfileFragment$key } from "./__generated__/ViewerProfileFragment.graphql";
