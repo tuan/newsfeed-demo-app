@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c2f84b01d2e1a0faef15da9b37bae162>>
+ * @generated SignedSource<<a8990a8f2ed944dc017346b6e5e0b900>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NewsfeedContentsFragment$data = {
   readonly viewer: {
@@ -28,10 +28,49 @@ export type NewsfeedContentsFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"NewsfeedContentsFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
+import NewsfeedContentsRefetchQuery_graphql from './NewsfeedContentsRefetchQuery.graphql';
+
+const node: ReaderFragment = (function(){
+var v0 = [
+  "viewer",
+  "newsfeedStories"
+];
+return {
+  "argumentDefinitions": [
+    {
+      "defaultValue": 3,
+      "kind": "LocalArgument",
+      "name": "count"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "cursor"
+    }
+  ],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "connection": [
+      {
+        "count": "count",
+        "cursor": "cursor",
+        "direction": "forward",
+        "path": (v0/*: any*/)
+      }
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "count",
+          "cursor": "cursor"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "fragmentPathInResult": [],
+      "operation": NewsfeedContentsRefetchQuery_graphql
+    }
+  },
   "name": "NewsfeedContentsFragment",
   "selections": [
     {
@@ -43,17 +82,11 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "alias": null,
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "first",
-              "value": 3
-            }
-          ],
+          "alias": "newsfeedStories",
+          "args": null,
           "concreteType": "StoryConnection",
           "kind": "LinkedField",
-          "name": "newsfeedStories",
+          "name": "__NewsfeedContentsFragment_newsfeedStories_connection",
           "plural": false,
           "selections": [
             {
@@ -83,15 +116,54 @@ const node: ReaderFragment = {
                       "args": null,
                       "kind": "FragmentSpread",
                       "name": "StoryFragment"
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "__typename",
+                      "storageKey": null
                     }
                   ],
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "cursor",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "PageInfo",
+              "kind": "LinkedField",
+              "name": "pageInfo",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "endCursor",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "hasNextPage",
                   "storageKey": null
                 }
               ],
               "storageKey": null
             }
           ],
-          "storageKey": "newsfeedStories(first:3)"
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -100,7 +172,8 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "c96e51c8b21f5d0f72d815b65cafcf52";
+(node as any).hash = "557f1fc065cc1380064c363a0a77e477";
 
 export default node;
