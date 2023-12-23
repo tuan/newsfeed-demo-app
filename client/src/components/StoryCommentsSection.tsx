@@ -5,6 +5,7 @@ import Comment from "./Comment";
 import LoadMoreCommentsButton from "./LoadMoreCommentsButton";
 import { useTransition } from "react";
 import LoadingSpinner from "./LoadingSpinner";
+import StoryCommentsComposer from "./StoryCommentsComposer";
 
 export type Props = {
   story: StoryCommentsSectionFragment$key;
@@ -29,6 +30,7 @@ const StoryCommentsSectionFragment = graphql`
         }
       }
     }
+    ...StoryCommentsComposerFragment
   }
 `;
 
@@ -46,6 +48,7 @@ export default function StoryCommentsSection({ story }: Props) {
 
   return (
     <>
+      <StoryCommentsComposer story={data} />
       {data.comments.edges.map((edge) => (
         <Comment key={edge.node.id} comment={edge.node} />
       ))}
