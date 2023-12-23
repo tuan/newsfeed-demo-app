@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bcdca1f69e2966bf0230207b7b84ad49>>
+ * @generated SignedSource<<d46f287bea554798b7a457298c3438d8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,13 +30,27 @@ var v0 = {
   "name": "id",
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": null,
     "kind": "ScalarField",
     "name": "url",
     "storageKey": null
+  }
+],
+v3 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 3
   }
 ];
 return {
@@ -110,13 +124,7 @@ return {
             "name": "poster",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__typename",
-                "storageKey": null
-              },
+              (v1/*: any*/),
               {
                 "kind": "TypeDiscriminator",
                 "abstractKey": "__isActor"
@@ -136,7 +144,7 @@ return {
                 "kind": "LinkedField",
                 "name": "profilePicture",
                 "plural": false,
-                "selections": (v1/*: any*/),
+                "selections": (v2/*: any*/),
                 "storageKey": null
               },
               {
@@ -153,18 +161,12 @@ return {
             "kind": "LinkedField",
             "name": "thumbnail",
             "plural": false,
-            "selections": (v1/*: any*/),
+            "selections": (v2/*: any*/),
             "storageKey": null
           },
           {
             "alias": null,
-            "args": [
-              {
-                "kind": "Literal",
-                "name": "first",
-                "value": 1
-              }
-            ],
+            "args": (v3/*: any*/),
             "concreteType": "CommentConnection",
             "kind": "LinkedField",
             "name": "comments",
@@ -183,6 +185,20 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "startCursor",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "endCursor",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasNextPage",
                     "storageKey": null
                   }
                 ],
@@ -211,15 +227,32 @@ return {
                         "kind": "ScalarField",
                         "name": "text",
                         "storageKey": null
-                      }
+                      },
+                      (v1/*: any*/)
                     ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "cursor",
                     "storageKey": null
                   }
                 ],
                 "storageKey": null
               }
             ],
-            "storageKey": "comments(first:1)"
+            "storageKey": "comments(first:3)"
+          },
+          {
+            "alias": null,
+            "args": (v3/*: any*/),
+            "filters": null,
+            "handle": "connection",
+            "key": "StoryCommentsSectionFragment_comments",
+            "kind": "LinkedHandle",
+            "name": "comments"
           },
           (v0/*: any*/)
         ],
@@ -228,12 +261,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "12ce72de6e121b1b53f44893a9a13ac3",
+    "cacheID": "391bf85d8c3fd4d40d22fc6af512e971",
     "id": null,
     "metadata": {},
     "name": "NewsfeedQuery",
     "operationKind": "query",
-    "text": "query NewsfeedQuery {\n  topStories {\n    ...StoryFragment\n    id\n  }\n}\n\nfragment CommentFragment on Comment {\n  text\n}\n\nfragment ImageFragment_image on Image {\n  url\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  id\n  name\n  profilePicture {\n    ...ImageFragment_image\n  }\n}\n\nfragment StoryCommentsSectionFragment on Story {\n  comments(first: 1) {\n    pageInfo {\n      startCursor\n    }\n    edges {\n      node {\n        id\n        ...CommentFragment\n      }\n    }\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  thumbnail {\n    ...ImageFragment_image\n  }\n  ...StoryCommentsSectionFragment\n}\n"
+    "text": "query NewsfeedQuery {\n  topStories {\n    ...StoryFragment\n    id\n  }\n}\n\nfragment CommentFragment on Comment {\n  text\n}\n\nfragment ImageFragment_image on Image {\n  url\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  id\n  name\n  profilePicture {\n    ...ImageFragment_image\n  }\n}\n\nfragment StoryCommentsSectionFragment on Story {\n  comments(first: 3) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n    }\n    edges {\n      node {\n        id\n        ...CommentFragment\n        __typename\n      }\n      cursor\n    }\n  }\n  id\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  thumbnail {\n    ...ImageFragment_image\n  }\n  ...StoryCommentsSectionFragment\n}\n"
   }
 };
 })();
