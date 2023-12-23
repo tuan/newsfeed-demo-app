@@ -49,6 +49,7 @@ type Location {
 
 type Mutation {
   likeStory(id: String!, doesLike: Boolean!): LikeStoryMutationResponse!
+  postStoryComment(id: String!, text: String!): StoryCommentMutationResponse!
 }
 
 """An object with a Globally Unique ID"""
@@ -133,6 +134,11 @@ type Story implements Node {
     """Returns the items in the list that come after the specified cursor."""
     last: Int = null
   ): CommentConnection!
+}
+
+type StoryCommentMutationResponse {
+  story: Story!
+  commentEdge: CommentEdge!
 }
 
 """A connection to a list of items."""
