@@ -4,7 +4,7 @@ import type { ContactsListFragment$key } from "./__generated__/ContactsListFragm
 import Card from "./Card";
 import ContactRow from "./ContactRow";
 import SearchInput from "./SearchInput";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 export type Props = {
   viewer: ContactsListFragment$key;
@@ -22,18 +22,25 @@ const ContactsListFragment = graphql`
 `;
 
 export default function ContactsList({ viewer }: Props) {
+  const [isPending, startTransition] = useTransition();
   const [searchString, setSearchString] = useState("");
   const [data, refetch] = useRefetchableFragment(ContactsListFragment, viewer);
 
   const onSearchStringChanged = (value: string) => {
     setSearchString(value);
-    refetch({ search: value });
+    startTransition(() => {
+      refetch({ search: value });
+    });
   };
 
   return (
     <Card dim={true}>
       <h3>Contacts</h3>
-      <SearchInput value={searchString} onChange={onSearchStringChanged} />
+      <SearchInput
+        value={searchString}
+        onChange={onSearchStringChanged}
+        isPending={isPending}
+      />
       {data.contacts.map((contact) => (
         <ContactRow key={contact.id} contact={contact} />
       ))}
