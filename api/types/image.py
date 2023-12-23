@@ -5,13 +5,18 @@ from db.types import JsonNode
 
 @strawberry.type
 class Image:
-    alt_text: str | None = None
-    url: str
+    _url: strawberry.Private[str]
+    _alt_text: strawberry.Private[str | None]
 
-    @staticmethod
-    def from_raw_data(data: JsonNode | None) -> "Image | None":
-        return (
-            Image(url=str(data.get("url")), alt_text=data.get("altText"))
-            if data
-            else None
-        )
+    def __init__(self, data: JsonNode):
+        self._url = data.get("url", "")
+        self._alt_text = data.get("altText")
+
+    @strawberry.field
+    def url(self, width: int | None = None, height: int | None = None) -> str:
+        if width is None and height is None:
+            return self._url
+
+        config = {"width": width, "height": height}
+        params = "&".join(f"{k}={v}" for k, v in config.items() if v is not None)
+        return f"{self._url}?{params}"

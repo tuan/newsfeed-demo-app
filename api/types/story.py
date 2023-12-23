@@ -45,14 +45,14 @@ class Story(Node):
     @strawberry.field
     def attachments(self) -> list[Image]:
         results = (
-            Image.from_raw_data(attachment)
-            for attachment in self._data.get("attachments", [])
+            Image(attachment) for attachment in self._data.get("attachments", [])
         )
         return [result for result in results if result is not None]
 
     @strawberry.field
     def thumbnail(self) -> Image | None:
-        return Image.from_raw_data(self._data.get("thumbnail"))
+        image = self._data.get("thumbnail")
+        return Image(image) if image is not None else None
 
     @strawberry.field
     def like_count(self) -> int | None:

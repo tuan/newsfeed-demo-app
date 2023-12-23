@@ -23,7 +23,8 @@ class Actor(Node):
 
     @strawberry.field
     def profile_picture(self) -> Image | None:
-        return Image.from_raw_data(self._data.get("profilePicture"))
+        image = self._data.get("profilePicture")
+        return Image(image) if image is not None else None
 
     @strawberry.field
     def joined(self) -> str | None:
