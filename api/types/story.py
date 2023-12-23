@@ -1,6 +1,8 @@
 from typing import Iterable
 import strawberry
+from strawberry import relay
 from api.types.actor import Actor
+from api.types.comment import Comment
 from api.types.image import Image
 
 from strawberry.relay import Node, NodeID
@@ -67,6 +69,10 @@ class Story(Node):
         authorId = self._data.get("authorID")
         raw_data = next(node for node in db.nodes if node.get("id") == authorId)
         return convert_to_actor(raw_data)
+
+    @relay.connection(relay.ListConnection[Comment])
+    def comments(self) -> Iterable[Comment]:
+        return [Comment(comment) for comment in self._data.get("comments", [])]
 
     @classmethod
     def resolve_nodes(
