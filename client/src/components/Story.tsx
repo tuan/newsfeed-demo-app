@@ -9,6 +9,7 @@ import { graphql } from "relay-runtime";
 import { StoryFragment$key } from "./__generated__/StoryFragment.graphql";
 import { useFragment } from "react-relay";
 import StoryCommentsSection from "./StoryCommentsSection";
+import StoryLikeButton from "./StoryLikeButton";
 
 type Props = {
   story: StoryFragment$key;
@@ -26,6 +27,7 @@ const StoryFragment = graphql`
       ...ImageFragment_image
     }
     ...StoryCommentsSectionFragment
+    ...StoryLikeButtonFragment
   }
 `;
 
@@ -41,6 +43,7 @@ export default function Story({ story }: Props): React.ReactElement {
         <Image image={data.thumbnail} width={400} height={400} />
       )}
       {data.summary && <StorySummary summary={data.summary} />}
+      <StoryLikeButton story={data} />
       <StoryCommentsSection story={data} />
     </Card>
   );
