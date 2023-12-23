@@ -39,8 +39,16 @@ type Image {
   url(width: Int = null, height: Int = null): String!
 }
 
+type LikeStoryMutationResponse {
+  story: Story!
+}
+
 type Location {
   name: String!
+}
+
+type Mutation {
+  likeStory(id: String!, doesLike: Boolean!): LikeStoryMutationResponse!
 }
 
 """An object with a Globally Unique ID"""
